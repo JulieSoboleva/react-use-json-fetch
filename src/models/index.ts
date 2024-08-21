@@ -9,7 +9,7 @@ export interface IData {
 export interface IJsonFetchResult {
     data: IData | undefined,
     loading: boolean,
-    error: string,
+    error: Error | null,
 }
 
 export interface IOpts {

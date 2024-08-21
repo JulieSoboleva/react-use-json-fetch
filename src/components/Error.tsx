@@ -6,7 +6,7 @@ export default function Error({ baseURL }: IBaseUrl) {
     
     return (
         <div style={{ color: 'red' }}>
-            {error && <span>ERROR: {error}</span>}
+            {error && <span>ERROR: {error.message}</span>}
         </div>
     );
 }

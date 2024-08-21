@@ -4,7 +4,7 @@ import { IData, IOpts, IJsonFetchResult } from '../models';
 export default function useJsonFetch(url: string, opts: IOpts): [IJsonFetchResult] {
     const [data, setData] = useState<IData>();
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string>('');
+    const [error, setError] = useState<Error | null>(null);
 
     const { method = 'GET', content } = opts;
 
@@ -24,15 +24,18 @@ export default function useJsonFetch(url: string, opts: IOpts): [IJsonFetchResul
                     }
                 );
                 
+                const responseData = await response.json();
+
                 if (!response.ok) {
-                    throw new Error(response.statusText);
+                    throw new Error(responseData.status);
                 }
-                const responseData = response.status === 200 ? await response.json() : null;
+                
                 setData(responseData);
-                setError('');
+                setError(null);
             } catch (e) {
-                const result: string = (e as Error).message
-                setError(result);
+                if (e instanceof Error) {
+                    setError(e);
+                }
             } finally {
                 setLoading(false);
             }
