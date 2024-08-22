@@ -43,7 +43,7 @@ export default function useJsonFetch(url: string, opts: IOpts): [IJsonFetchResul
 
         fetchData();
 
-    }, []);
+    }, [url, method, content]);
 
     return [{data, loading, error}];
 }

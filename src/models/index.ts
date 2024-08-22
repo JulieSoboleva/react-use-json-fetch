@@ -14,5 +14,5 @@ export interface IJsonFetchResult {
 
 export interface IOpts {
     method: string,
-    content: {},
+    content: string[],
 }
